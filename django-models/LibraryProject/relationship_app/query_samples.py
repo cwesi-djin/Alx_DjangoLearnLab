@@ -3,7 +3,7 @@ import os
 import django
 
 # Setup Django Environment
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django-models.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'LibraryProject.settings')
 django.setup()
 
 from relationship_app.models import Author, Book, Library, Librarian
@@ -24,6 +24,9 @@ def books_in_library(library_name):
 
 # 3. Retrieve the librarian for a library
 def librarian_for_library(library_name):
-    library = Library.objects.get(name=library_name)
-    return library.librarian
-
+    try:
+        library = Library.objects.get(name=library_name)
+        librarian = Librarian.objects.get(library=library)
+        return librarian
+    except (Library.DoesNotExist, Librarian.DoesNotExist):
+        return None
