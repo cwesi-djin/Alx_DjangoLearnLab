@@ -50,23 +50,15 @@ def logout_view(request):
     return render(request, 'relationship_app/logout.html')
 
 
-def role_check(role):
-    return lambda user: user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == role
-
-@user_passes_test(role_check('Admin'))
-def admin_view(request):
-    return render(request, 'relationship_app/admin_view.html')
-
 def is_admin(user):
     return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
 
 def is_librarian(user):
     return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Librarian'
 
-@user_passes_test(is_librarian)
-def librarian_view(request):
-    return render(request, 'relationship_app/librarian_view.html')
+def is_member(user):
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
 
-@user_passes_test(role_check('Member'))
-def member_view(request):
-    return render(request, 'relationship_app/member_view.html')
+@user_passes_test(is_admin)
+def admin_view(request):
+    return render(request, 'relationship_app/admin_view.html')

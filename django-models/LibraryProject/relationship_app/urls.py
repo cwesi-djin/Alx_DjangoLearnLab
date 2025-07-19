@@ -14,4 +14,5 @@ urlpattern = [
     path('register/', views.register, name='register'),
     path('admin-panel/', views.admin_view, name='admin_view'),
     path('librarian-panel/', views.librarian_view, name='librarian_view'),
+    path('member-panel/', views.member_view, name='member_view'),
 ]
