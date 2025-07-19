@@ -6,7 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from .models import Book
 from .models import Library
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 
 
 # Create your views here.
@@ -57,7 +57,12 @@ def is_librarian(user):
     return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Librarian'
 
 def is_member(user):
-    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
+    return hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
+
+@user_passes_test(is_member)
+@login_required
+def member_view(request):
+    return render(request, 'relationship_app/member_view.html')
 
 @user_passes_test(is_admin)
 def admin_view(request):
