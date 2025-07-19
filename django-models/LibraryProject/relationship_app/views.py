@@ -6,6 +6,8 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from .models import Book
 from .models import Library
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 
 # Create your views here.
 def list_books(request):
@@ -46,3 +48,19 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return render(request, 'relationship_app/logout.html')
+
+
+def role_check(role):
+    return lambda user: user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == role
+
+@user_passes_test(role_check('Admin'))
+def admin_view(request):
+    return render(request, 'relationship_app/admin_view.html')
+
+@user_passes_test(role_check('Librarian'))
+def librarian_view(request):
+    return render(request, 'relationship_app/librarian_view.html')
+
+@user_passes_test(role_check('Member'))
+def member_view(request):
+    return render(request, 'relationship_app/member_view.html')
