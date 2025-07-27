@@ -38,6 +38,12 @@ SECURE_BROWSER_XSS_FILTER = True
 # Prevent site from being loaded in iframes (clickjacking protection)
 X_FRAME_OPTIONS = 'DENY'
 
+SECURE_SSL_REDIRECT = True
+
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAIN = True
+SECURE_HSTS_RELOAD = True
+
 # Application definition
 
 INSTALLED_APPS = [
