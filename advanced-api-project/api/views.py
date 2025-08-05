@@ -19,7 +19,6 @@ class CreateView(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
-    def 
 
 class UpdateView(generics.UpdateAPIView):
     queryset = Book.objects.all()
