@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics, status
-from .serializer import UserRegistrationSerializer, UserLoginSerializer, UserSerializer
+from .serializers import UserRegistrationSerializer, UserLoginSerializer, UserSerializer
 from .models import CustomUser
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
