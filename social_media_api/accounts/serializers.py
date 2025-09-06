@@ -23,14 +23,23 @@ class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
-    def validate(self, attrs):
-        username = attrs.get("username")
-        password = attrs.get("password")
-        user = authenticate(username=username, password=password)
-        if not user:
-            raise serializers.ValidationError("Invalid login details")
-        attrs["user"] = user
-        return attrs
+    def validate(self, data):
+
+        username = data.get("username")
+        password = data.get("password")
+
+        if username and password:
+            user = authenticate(username=username, password=password)
+
+            if not user:
+                raise serializers.ValidationError("Invalid Credentials")
+            data["user"] = user
+
+            return data
+    
+        else:
+            raise serializers.ValidationError("Missing field.")
+
     
 class UserSerializer(serializers.Serializer):
     class Meta:
