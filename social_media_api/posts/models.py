@@ -5,7 +5,7 @@ User = get_user_model()
 
 
 # Create your models here.
-class Posts(models.Model):
+class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     title = models.CharField(max_length=50, unique=True)
     content = models.TextField()
@@ -17,7 +17,7 @@ class Posts(models.Model):
 
 class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
-    post = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name="comments")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
