@@ -4,8 +4,12 @@ from .serializers import UserRegistrationSerializer, UserLoginSerializer, UserSe
 from .models import CustomUser
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import get_user_model
+
+User = get_user_model
+
 
 # Create your views here.
 class UserRegistrationView(generics.CreateAPIView):
@@ -39,12 +43,13 @@ class UserLoginView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data["user"]
 
-        refresh = RefreshToken.for_user(user)
+        token, _ = Token.objects.get_or_create(user=user)
+        user_data = UserSerializer(user).data
+
         return Response(
             {
+                'token':token.key,
                 "user": UserSerializer(user).data,
-                "refresh": str(refresh),
-                "access": str(refresh.access_token),
             },
             status=status.HTTP_200_OK,
         )
