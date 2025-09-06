@@ -14,4 +14,5 @@ urlpatterns = [
     path("token/refresh/", TokenRefreshView.as_view(), name="token-refresh"),
     path("profile/", UserProfileView.as_view(), name="user-profile"),
     path('', include(router.urls)),
+    path("unfollow/<int:user_id>/", UserViewSet.as_view, name="follow/<int:user_id>"),
 ]
