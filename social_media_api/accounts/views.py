@@ -13,7 +13,7 @@ from django.contrib.auth import get_user_model
 
 # Create your views here.
 class UserRegistrationView(generics.CreateAPIView):
-    queryset = CustomUser.object.all()
+    queryset = CustomUser.objects.all()
     serializer_class = UserRegistrationSerializer
     permission_classes = [AllowAny]
 
