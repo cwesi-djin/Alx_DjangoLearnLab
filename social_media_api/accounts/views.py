@@ -103,4 +103,3 @@ class UserViewSet(viewsets.ModelViewSet):
             {"detail": f"You have unfollowed {user_to_unfollow.username}."},
             status=status.HTTP_200_OK,
         )
-
