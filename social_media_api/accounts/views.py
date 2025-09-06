@@ -8,7 +8,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
 
-User = get_user_model
+
 
 
 # Create your views here.
